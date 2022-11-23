@@ -29,6 +29,10 @@ function App() {
     taskField['value'] = ''
   }
 
+  const toggleStatus = async (id, event) => {
+    await todos.update(id, { completed: !!event.target.checked, updated_at: moment().format("DD-MM-YYYY hh:mm:ss")})
+  }
+
   const deleteTask = async (id) => todos.delete(id)
 
   console.log('====', allItems)
@@ -49,11 +53,13 @@ function App() {
             <div className="row" key={id}>
               <p className="col s10">
                 <label>
-                  <input 
-                    type="checkbox" 
-                    checked={completed} 
-                    className="checkbox-blue" />
-                  <span className="black-tex">{task}</span>
+                <input
+                    type="checkbox"
+                    checked={completed}
+                    className="checkbox-blue"
+                    onChange={(event) => toggleStatus(id, event)}
+                  />
+                  <span className={`black-text ${completed && 'strike-text'}`}>{task}</span>
                 </label>
               </p>
               <i onClick={() => deleteTask(id)} className="col s2 material-icons delete-button">delete</i>
