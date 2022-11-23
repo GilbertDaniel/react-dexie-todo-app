@@ -9,7 +9,7 @@ db.version(1).stores({
   todos: '++id,task,completed,created_at,updated_at'
 })
 
-const {todos} = db
+const { todos } = db
 
 
 function App() {
@@ -42,25 +42,20 @@ function App() {
 
       <div className="card white darken-1">
         <div className="card-content">
-          <div className="row">
-            <p className="col s10">
-              <label>
-                <input type="checkbox" checked className="checkbox-blue" />
-                <span className="black-tex strike-text">Call John Legend</span>
-              </label>
-            </p>
-            <i className="col s2 material-icons delete-button">delete</i>
-          </div>
-
-          <div className="row">
-            <p className="col s10">
-              <label>
-                <input type="checkbox" className="checkbox-blue" />
-                <span className="black-tex">Do my laundry</span>
-              </label>
-            </p>
-            <i className="col s2 material-icons delete-button">delete</i>
-          </div>
+          {allItems?.map(({id, task, completed}) => (
+            <div className="row" key={id}>
+              <p className="col s10">
+                <label>
+                  <input 
+                    type="checkbox" 
+                    checked={completed} 
+                    className="checkbox-blue" />
+                  <span className="black-tex">{task}</span>
+                </label>
+              </p>
+              <i className="col s2 material-icons delete-button">delete</i>
+            </div>
+          ))}
         </div>
       </div>
     </div>
