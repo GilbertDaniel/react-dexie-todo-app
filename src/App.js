@@ -29,6 +29,8 @@ function App() {
     taskField['value'] = ''
   }
 
+  const deleteTask = async (id) => todos.delete(id)
+
   console.log('====', allItems)
   return (
     <div className="container">
@@ -42,6 +44,7 @@ function App() {
 
       <div className="card white darken-1">
         <div className="card-content">
+        {!allItems?.length && <p className="center-align">You've not added any task yet.</p>}
           {allItems?.map(({id, task, completed}) => (
             <div className="row" key={id}>
               <p className="col s10">
@@ -53,7 +56,7 @@ function App() {
                   <span className="black-tex">{task}</span>
                 </label>
               </p>
-              <i className="col s2 material-icons delete-button">delete</i>
+              <i onClick={() => deleteTask(id)} className="col s2 material-icons delete-button">delete</i>
             </div>
           ))}
         </div>
