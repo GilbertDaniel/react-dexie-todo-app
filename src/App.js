@@ -3,21 +3,43 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <h3 className="teal-text center-align">Todo App</h3>
+      <form className="add-item-form">
+        <input
+          type="text"
+          className="itemField"
+          placeholder="What do you want to do today?"
+          required
+        />
+        <button type="submit" className="waves-effect btn teal right">
+          Add
+        </button>
+      </form>
+
+      <div className="card white darken-1">
+        <div className="card-content">
+          <div className="row">
+            <p className="col s10">
+              <label>
+                <input type="checkbox" checked className="checkbox-blue" />
+                <span className="black-tex strike-text">Call John Legend</span>
+              </label>
+            </p>
+            <i className="col s2 material-icons delete-button">delete</i>
+          </div>
+
+          <div className="row">
+            <p className="col s10">
+              <label>
+                <input type="checkbox" className="checkbox-blue" />
+                <span className="black-tex">Do my laundry</span>
+              </label>
+            </p>
+            <i className="col s2 material-icons delete-button">delete</i>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
