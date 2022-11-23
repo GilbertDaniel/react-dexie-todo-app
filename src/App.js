@@ -2,10 +2,11 @@ import logo from './logo.svg';
 import './App.css';
 import Dexie from 'dexie';
 import { useLiveQuery } from 'dexie-react-hooks';
+import moment from 'moment';
 
 const db = new Dexie('todoApp')
 db.version(1).stores({
-  todos: '++id,task,completed,created_date,updated_date'
+  todos: '++id,task,completed,created_at,updated_at'
 })
 
 const {todos} = db
@@ -14,17 +15,26 @@ const {todos} = db
 function App() {
   const allItems = useLiveQuery(() => todos.toArray(), [])
 
+  const addTask = async (event) => {
+    event.preventDefault()
+    const taskField = document.querySelector('#taskInput')
+
+    await todos.add({
+      task: taskField['value'],
+      completed: false,
+      created_at: moment().format("DD-MM-YYYY hh:mm:ss"),
+      updated_at: moment().format("DD-MM-YYYY hh:mm:ss")
+    })
+
+    taskField['value'] = ''
+  }
+
   console.log('====', allItems)
   return (
     <div className="container">
       <h3 className="teal-text center-align">Todo App</h3>
-      <form className="add-item-form">
-        <input
-          type="text"
-          className="itemField"
-          placeholder="What do you want to do today?"
-          required
-        />
+      <form className="add-item-form" onSubmit={addTask}>
+        <input type="text" id="taskInput" placeholder="What do you want to do today?" required />
         <button type="submit" className="waves-effect btn teal right">
           Add
         </button>
